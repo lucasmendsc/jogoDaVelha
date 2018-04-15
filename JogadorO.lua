@@ -1,0 +1,3 @@
+Jogador = "O"
+
+	return Jogador;

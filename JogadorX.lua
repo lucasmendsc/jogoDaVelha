@@ -1,0 +1,3 @@
+Jogador = "X"
+	
+	return Jogador;
