@@ -1,154 +1,255 @@
-require("Jogador")
+tabuleiro = {{"","",""},{"","",""},{"","",""}}
 
-tab = {{"","",""},{"","",""},{"","",""}}
-
-jogadas = 0
-
-function tab:jogada(valorJogada,indice)
-	if(jogadas < 9)then
-		jogadas = jogadas + 1;
-		if(indice == 1)then
-			return self:jogadaIndiceUm(valorJogada)
-		elseif(indice == 2)then
-			return self:jogadaIndiceDois(valorJogada)
-		elseif(indice == 3)then
-			return self:jogadaIndiceTres(valorJogada)
-		elseif(indice == 4)then
-			return self:jogadaIndiceQuatro(valorJogada)
-		elseif(indice == 5)then
-			return self:jogadaIndiceCinco(valorJogada)
-		elseif(indice == 6)then
-			return self:jogadaIndiceSeis(valorJogada)
-		elseif(indice == 7)then
-			return self:jogadaIndiceSete(valorJogada)
-		elseif(indice == 8)then
-			return self:jogadaIndiceOito(valorJogada)
-		elseif(indice == 9)then
-			return self:jogadaIndiceNove(valorJogada)
-		else
-			return "Indice inválido! Jogue novamente";
-		end
+function tabuleiro:imprimirResultado(valorJogada,indice)
+	if(tabuleiro:verificarVitoria(valorJogada,indice))then
+		return "O jogador " .. valorJogada .. " venceu!";
+	else
+		return ""
 	end
 end
 
-function tab:criarTabuleiro()
-	return " 1 | 2 | 3 " .. "\n" ..
+function tabuleiro:verificarVitoria(valorJogada,indice)
+	if(indice == 1)then
+		retorno = tabuleiro:checaLinhaUm(valorJogada,indice)
+
+			if(retorno ~= true)then
+				retorno = tabuleiro:checaColunaUm(valorJogada,indice)
+			end
+
+			if(retorno ~= true)then
+				retorno = tabuleiro:checaDiagonalNoroeste(valorJogada,indice)
+			end
+		return retorno
+
+	elseif(indice == 2)then
+		retorno = tabuleiro:checaLinhaDois(valorJogada,indice)
+			if(retorno ~= true)then
+				retorno = tabuleiro:checaColunaDois(valorJogada,indice)
+			end
+		return retorno
+
+	elseif(indice == 3)then
+		retorno = tabuleiro:checaLinhaUm(valorJogada,indice)
+			if(retorno ~= true)then
+				retorno = tabuleiro:checaColunaTres(valorJogada,indice)
+			end
+
+			if(retorno ~= true)then
+				retorno = tabuleiro:checaDiagonalNordeste(valorJogada,indice)
+			end
+		return retorno
+
+	elseif(indice == 4)then
+		retorno = tabuleiro:checaLinhaDois(valorJogada,indice)
+			if(retorno ~= true)then
+				retorno = tabuleiro:checaColunaUm(valorJogada,indice)
+			end
+		return retorno
+
+	elseif(indice == 5)then
+		retorno = tabuleiro:checaLinhaDois(valorJogada,indice)
+			if(retorno ~= true)then
+				retorno = tabuleiro:checaColunaDois(valorJogada,indice)
+			end
+
+			if(retorno ~= true)then
+				retorno = tabuleiro:checaDiagonalNordeste(valorJogada,indice)
+			end
+
+			if(retorno ~= true)then
+				retorno = tabuleiro:checaDiagonalNoroeste(valorJogada,indice)
+			end
+		return retorno
+
+	elseif(indice == 6)then
+	 retorno = tabuleiro:checaLinhaDois(valorJogada,indice)
+			if(retorno ~= true)then
+				retorno = tabuleiro:checaColunaTres(valorJogada,indice)
+			end
+		return retorno
+
+	elseif(indice == 7)then
+		 retorno = tabuleiro:checaLinhaTres(valorJogada,indice)
+			if(retorno ~= true)then
+				retorno = tabuleiro:checaColunaUm(valorJogada,indice)
+			end
+
+			if(retorno ~= true)then
+				retorno = tabuleiro:checaDiagonalNordeste(valorJogada,indice)
+			end
+		return retorno
+
+
+	elseif(indice == 8)then
+		retorno = tabuleiro:checaLinhaTres(valorJogada,indice)
+			if(retorno ~= true)then
+				retorno = tabuleiro:checaColunaDois(valorJogada,indice)
+			end
+		return retorno
+
+	elseif(indice == 9)then
+		retorno = tabuleiro:checaLinhaTres(valorJogada,indice)
+			if(retorno ~= true)then
+				retorno = tabuleiro:checaColunaTres(valorJogada,indice)
+			end
+
+			if(retorno ~= true)then
+				retorno = tabuleiro:checaDiagonalNoroeste(valorJogada,indice)
+			end
+		return retorno
+	end
+end
+
+function tabuleiro:jogada(valorJogada,indice)
+	if(indice == 1 and tabuleiro[1][1] == "")then
+		tabuleiro[1][1] = valorJogada
+
+		return tabuleiro:retorno() .. "\n"
+				.. tabuleiro:imprimirResultado(valorJogada,indice);
+
+	elseif(indice == 2 and tabuleiro[1][2] == "")then
+		tabuleiro[1][2] = valorJogada
+
+			return tabuleiro:retorno() .. "\n"
+				.. tabuleiro:imprimirResultado(valorJogada,indice);
+
+	elseif(indice == 3 and tabuleiro[1][3] == "")then
+		tabuleiro[1][3] = valorJogada
+
+			return tabuleiro:retorno() .. "\n"
+				.. tabuleiro:imprimirResultado(valorJogada,indice);
+
+	elseif(indice == 4 and tabuleiro[2][1] == "")then
+		tabuleiro[2][1] = valorJogada
+			return tabuleiro:retorno() .. "\n"
+				.. tabuleiro:imprimirResultado(valorJogada,indice);
+
+	elseif(indice == 5 and tabuleiro[2][2] == "")then
+		tabuleiro[2][2] = valorJogada
+				return tabuleiro:retorno() .. "\n"
+				.. tabuleiro:imprimirResultado(valorJogada,indice);
+
+	elseif(indice == 6 and tabuleiro[2][3] == "")then
+		tabuleiro[2][3] = valorJogada
+				return tabuleiro:retorno() .. "\n"
+				.. tabuleiro:imprimirResultado(valorJogada,indice);
+
+	elseif(indice == 7 and tabuleiro[3][1] == "")then
+		tabuleiro[3][1] = valorJogada
+				return tabuleiro:retorno() .. "\n"
+				.. tabuleiro:imprimirResultado(valorJogada,indice);
+
+	elseif(indice == 8 and tabuleiro[3][2] == "")then
+		tabuleiro[3][2] = valorJogada
+				return tabuleiro:retorno() .. "\n"
+				.. tabuleiro:imprimirResultado(valorJogada,indice);
+
+	elseif(indice == 9 and tabuleiro[3][3] == "")then
+		tabuleiro[3][3] = valorJogada
+			return tabuleiro:retorno() .. "\n"
+				.. tabuleiro:imprimirResultado(valorJogada,indice);
+	else
+		return "indice inexistente ou ja ocupado!"
+	end
+end
+
+function tabuleiro:checaLinhaUm(valorJogada,indice)
+	if(tabuleiro[1][1] == valorJogada
+		and tabuleiro[1][1] == tabuleiro[1][2]
+			and tabuleiro[1][2] == tabuleiro[1][3])then
+			return true
+		else
+		return false
+	end
+end
+
+function tabuleiro:checaColunaUm(valorJogada,indice)
+	if(tabuleiro[1][1] == valorJogada
+		and tabuleiro[1][1] == tabuleiro[2][1]
+			and tabuleiro[2][1] == tabuleiro[3][1])then
+			return true
+		else
+			return false
+	end
+end
+
+function tabuleiro:checaLinhaDois(valorJogada,indice)
+	if(tabuleiro[2][1] == valorJogada
+		and tabuleiro[2][1] == tabuleiro[2][2]
+			and tabuleiro[2][2] == tabuleiro[2][3])then
+			return true
+		else
+			return false
+	end
+end
+
+function tabuleiro:checaColunaDois(valorJogada,indice)
+	if(tabuleiro[1][2] == valorJogada
+		and tabuleiro[1][2] == tabuleiro[2][2]
+			and tabuleiro[2][2] == tabuleiro [3][2])then
+			return true
+		else
+			return false
+	end
+end
+
+function tabuleiro:checaLinhaTres(valorJogada,indice)
+	if(tabuleiro[3][1] == valorJogada
+		and tabuleiro[3][1] == tabuleiro[3][2]
+			and tabuleiro[3][2] == tabuleiro[3][3])then
+			return true
+		else
+			return false
+	end
+end
+
+function tabuleiro:checaColunaTres(valorJogada,indice)
+	if(tabuleiro[1][3] == valorJogada
+		and tabuleiro[1][3] == tabuleiro[2][3]
+			and tabuleiro[1][3] == tabuleiro[3][3])then
+			return true
+		else
+			return false
+	end
+end
+
+function tabuleiro:checaDiagonalNordeste(valorJogada,indice)
+	if(tabuleiro[3][1] == valorJogada
+		and tabuleiro[3][1] == tabuleiro[2][2]
+			and tabuleiro[2][2] == tabuleiro[1][3])then
+			return true
+		else
+			return false
+	end
+end
+
+function tabuleiro:checaDiagonalNoroeste(valorJogada,indice)
+	if(tabuleiro[1][1] == valorJogada
+		and tabuleiro[1][1] == tabuleiro[2][2]
+			and tabuleiro[2][2] == tabuleiro[3][3])then
+			return true
+		else
+			return false
+	end
+end
+
+
+function tabuleiro:mostrarIndices()
+		return " 1 | 2 | 3 " .. "\n" ..
 		   "-----------" .. "\n" ..
 		   " 4 | 5 | 6 " .. "\n" ..
 		   "-----------" .. "\n" ..
 		   " 7 | 8 | 9 "
 	end
 
-
-function tab:jogadaIndiceUm(valorJogada)
-	retorno = tabuleiro:checaLinhaUm(valorJogada)
-	if(retorno)then
-		retorno = tabuleiro:checaColunaUm(valorJogada)
-	end
-
-	if(retorno)then
-		retorno = tabuleiro:checaDiagonalNoroeste(valorJogada)
-	end
-
-	return retorno
+function tabuleiro:retorno()
+	return " " .. tabuleiro[1][1] .. " " .. "|" .. " " .. tabuleiro[1][2] .. " " .. "|" .. " " .. tabuleiro[1][3] .. "\n" ..
+		   "----------" .. "\n" ..
+		   " " .. tabuleiro[2][1] .. " " .. "|" .. " " .. tabuleiro[2][2] .. " " .. "|" .. " " .. tabuleiro[2][3] .. "\n" ..
+		   "----------" .. "\n" ..
+		   " " .. tabuleiro[3][1] .. " " .. "|" .. " " .. tabuleiro[3][2] .. " " .. "|" .. " " .. tabuleiro[3][3];
 end
 
-
-function tab:jogadaIndiceDois(valorJogada)
-	retorno = tabuleiro:checaLinhaDois(valorJogada)
-	if(retorno)then
-		retorno = tabuleiro:checaColunaDois(valorJogada)
-	end
-	return retorno
-end
-
-
-function tab:jogadaIndiceTres(valorJogada)
-	retorno = tabuleiro:checaLinhaTres(valorJogada)
-	if(retorno)then
-		retorno = tabuleiro:checaColunaTres(valorJogada)
-	end
-
-	if(retorno)then
-		retorno = tabuleiro:checaDiagonalNordeste(valorJogada)
-	end
-
-	return retorno
-end
-
-function tab:jogadaIndiceQuatro(valorJogada)
-	retorno = tabuleiro:checaLinhaDois(valorJogada)
-	if(retorno)then
-		retorno = tabuleiro:checaColunaUm(valorJogada)
-	end
-	return retorno
-end
-
-function tab:jogadaIndiceCinco(valorJogada)
-	retorno = tabuleiro:checaLinhaDois(valorJogada)
-	if(retorno)then
-		retorno = tabuleiro:checaColunaDois(valorJogada)
-	end
-
-	if(retorno)then
-		retorno = tabuleiro:checaDiagonalNordeste(valorJogada)
-	end
-
-	if(retorno)then
-		retorno = tabuleiro:checaDiagonalNordeste(valorJogada)
-	end
-
-	return retorno
-end
-
-function tab:jogadaIndiceSeis(valorJogada)
-	retorno = tabuleiro:checaLinhaDois(valorJogada)
-
-	if(retorno)then
-		retorno = tabuleiro:checaColunaTres(valorJogada)
-	end
-
-	return retorno
-
-end
-
-function tab:jogadaIndiceSete(ValorJogada)
-	retorno = tabuleiro:checaLinhaTres(valorJogada)
-
-	if(retorno)then
-		retorno = tabuleiro:checaColunaUm(valorJogada)
-	end
-
-	if(retorno)then
-		retorno = tabuleiro:checaDiagonalNordeste(valorJogada)
-	end
-
-	return retorno
-
-end
-
-function tab:jogadaIndiceOito(ValorJogada)
-	retorno = tabuleiro:checaLinhaTres(valorJogada)
-
-	if(retorno)then
-		retorno = tabuleiro:checaColunaDois(valorJogada)
-	end
-
-	return retorno
-
-end
-
-function tab:jogadaIndiceNove(ValorJogada)
-	retorno = tabuleiro:checaLinhaTres(valorJogada)
-
-	if(retorno)then
-		retorno = tabuleiro:checaColunaTres(valorJogada)
-	end
-
-	if(retorno)then
-		retorno = tabuleiro:checaDiagonalNoroeste(valorJogada)
-	end
-
-	return retorno
-
+function tabuleiro:resetar()
+	tabuleiro = {{"","",""},{"","",""},{"","",""}}
 end
